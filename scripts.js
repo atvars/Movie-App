@@ -2,8 +2,10 @@ const API_URL = 'https://api.themoviedb.org/3/discover/movie?sort_by=popularity.
 
 const IMG_PATH = 'https://image.tmdb.org/t/p/w1280'
 
-const SEARCH_URL = 'https://api.themoviedb.org/3/search/movie?api_key=1c0234328d5c27cddcafaba64af270df&query="'
+const SEARCH_API = 'https://api.themoviedb.org/3/search/movie?api_key=1c0234328d5c27cddcafaba64af270df&query="'
 
+const form = document.getElementById('form')
+const search = document.getElementById('search')
 
 // get initial movies
 getMovies(API_URL)
@@ -14,3 +16,17 @@ async function getMovies(url) {
     console.log(data.results)
 }
 
+// search
+form.addEventListener('submit', (e) => {
+    e.preventDefault()
+
+    const searchTerm = search.value
+
+    if(searchTerm && searchTerm !== '') {
+        getMovies(SEARCH_API + searchTerm)
+
+        search.value = ''
+    } else {
+        window.location.reload()
+    }
+})
